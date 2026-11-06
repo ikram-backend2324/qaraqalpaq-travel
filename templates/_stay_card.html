@@ -1,0 +1,9 @@
+{% load qt %}<a class="card" href="/stays/{{ s.slug }}/{% if keep %}?{{ keep }}{% endif %}">
+  <div class="pic" style="background-image:url(/img/stay/{{ s.slug }}.svg)"></div>
+  <div class="body">
+    <div style="display:flex;justify-content:space-between;gap:8px;align-items:center"><span class="tag">{% with k="kind_"|add:s.kind %}{{ t|tget:k }}{% endwith %}</span><span class="small" style="color:#d69a2d;font-weight:800">{{ s.rating|stars }}</span></div>
+    <h3 style="margin:10px 0 4px">{{ s.name }}</h3>
+    <div class="muted small">{{ t.near }}: {% if s.near %}{% with a="name,"|add:lang %}{{ s.near|tr:a }}{% endwith %}{% endif %} · {{ s.capacity }} {{ t.up_to }}</div>
+    <div style="margin-top:10px"><span class="price">${{ s.price_usd }}</span> <span class="muted small">{{ t.per_night }}</span></div>
+  </div>
+</a>

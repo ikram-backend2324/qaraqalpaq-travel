@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block content %}
+<section><div class="wrap">
+  <h1>{{ t.about_title }}</h1>
+  <div class="grid2" style="margin-top:20px">
+    <div class="card"><div class="body"><h2>🧭 {{ t.problem_t }}</h2><p>{{ t.problem_d }}</p></div></div>
+    <div class="card"><div class="body"><h2>💡 {{ t.solution_t }}</h2><p>{{ t.solution_d }}</p></div></div>
+    <div class="card"><div class="body"><h2>💰 {{ t.model_t }}</h2><ul class="list"><li>{{ t.model_1 }}</li><li>{{ t.model_2 }}</li><li>{{ t.model_3 }}</li></ul></div></div>
+    <div class="card"><div class="body"><h2>🗺 {{ t.road_t }}</h2><ol class="list"><li>{{ t.road_1 }}</li><li>{{ t.road_2 }}</li><li>{{ t.road_3 }}</li><li>{{ t.road_4 }}</li></ol></div></div>
+  </div>
+</div></section>
+{% endblock %}

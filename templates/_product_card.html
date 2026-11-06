@@ -1,0 +1,9 @@
+{% load qt %}<a class="card" href="/craft/{{ p.slug }}/">
+  <div class="pic sq" style="background-image:url(/img/product/{{ p.slug }}.svg)"></div>
+  <div class="body">
+    <span class="tag">{% with k="cat_"|add:p.category %}{{ t|tget:k }}{% endwith %}</span>
+    <h3 style="margin:10px 0 4px">{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</h3>
+    <div class="muted small">{{ t.artisan }}: {{ p.artisan }} · {{ p.origin }}</div>
+    <div style="margin-top:8px"><span class="price">${{ p.price_usd }}</span></div>
+  </div>
+</a>

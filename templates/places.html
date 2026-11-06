@@ -1,0 +1,19 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}{{ t.nav_places }} — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap">
+  <h1>{{ t.places_title }}</h1>
+  <div class="grid3">
+  {% for p in places %}
+    <a class="card" href="/places/{{ p.slug }}/">
+      <div class="pic" style="background-image:url(/img/place/{{ p.slug }}.svg)"></div>
+      <div class="body">
+        <span class="tag">{% with k="kind_"|add:p.kind %}{{ t|tget:k }}{% endwith %}</span>{% if p.ar_scene %} <span class="tag red">AR</span>{% endif %}
+        <h3 style="margin:10px 0 4px">{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</h3>
+        <div class="muted small">📍 {{ p.district }}</div>
+      </div>
+    </a>
+  {% endfor %}
+  </div>
+</div></section>
+{% endblock %}

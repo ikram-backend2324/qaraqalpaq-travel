@@ -1,0 +1,31 @@
+databases:
+  - name: qqtravel-db
+    plan: free
+    region: oregon
+    databaseName: qqtravel
+    user: qqtravel
+
+services:
+  - type: web
+    name: qaraqalpaq-travel
+    runtime: python
+    plan: free
+    region: oregon
+    buildCommand: "./build.sh"
+    startCommand: "./start.sh"
+    healthCheckPath: /api/health/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DEBUG
+        value: "0"
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DATABASE_URL
+        fromDatabase:
+          name: qqtravel-db
+          property: connectionString
+      - key: OPENROUTER_MODEL
+        value: google/gemini-2.5-flash
+      - key: OPENROUTER_API_KEY
+        sync: false

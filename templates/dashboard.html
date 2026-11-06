@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block content %}
+<section><div class="wrap">
+  <h1>📊 {{ t.dash_title }}</h1>
+  <div class="stats" style="grid-template-columns:repeat(5,1fr)">
+    <div class="stat"><b>{{ bookings }}</b><span class="muted">{{ t.d_bookings }}</span></div>
+    <div class="stat"><b>{{ orders }}</b><span class="muted">{{ t.d_orders }}</span></div>
+    <div class="stat"><b>${{ gmv }}</b><span class="muted">{{ t.d_gmv }}</span></div>
+    <div class="stat"><b style="color:var(--green)">${{ rev }}</b><span class="muted">{{ t.d_rev }}</span></div>
+    <div class="stat"><b>{{ leads }}</b><span class="muted">{{ t.d_leads }}</span></div>
+  </div>
+  <div class="grid2" style="margin-top:24px">
+    <div class="card"><div class="body"><h3>{{ t.d_recent }}</h3>
+      <table class="tbl">{% for r in recent %}<tr><td>{% if r.kind == 'booking' %}⛺{% else %}📦{% endif %}</td><td>{{ r.what }}<div class="muted small">{{ r.who }} · {{ r.when|date:"d.m H:i" }}</div></td><td><b>${{ r.usd }}</b></td></tr>{% empty %}<tr><td class="muted">{{ t.d_none }}</td></tr>{% endfor %}</table>
+    </div></div>
+    <div class="card"><div class="body"><h3>{{ t.featured_stays }}</h3>
+      <table class="tbl">{% for s in top %}<tr><td>{{ s.name }}</td><td class="muted">{{ s.n }} · {{ t.d_bookings|lower }}</td><td><b>${{ s.price_usd }}</b></td></tr>{% endfor %}</table>
+    </div></div>
+  </div>
+</div></section>
+{% endblock %}

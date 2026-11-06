@@ -1,0 +1,45 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}{{ s.name }} — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap">
+  <a href="/stays/" class="small">← YurtGlamp</a>
+  <div class="detail" style="margin-top:12px">
+    <div>
+      <div class="bigpic" style="background-image:url(/img/stay/{{ s.slug }}.svg)"></div>
+      <div style="display:flex;gap:10px;align-items:center;margin:18px 0 6px"><span class="tag red">{% with k="kind_"|add:s.kind %}{{ t|tget:k }}{% endwith %}</span><span style="color:#d69a2d;font-weight:800">{{ s.rating|stars }}</span></div>
+      <h1 style="font-size:40px">{{ s.name }}</h1>
+      <p class="muted">{{ t.near }}: {% if s.near %}<a href="/places/{{ s.near.slug }}/">{% with a="name,"|add:lang %}{{ s.near|tr:a }}{% endwith %}</a>{% endif %} · {{ s.capacity }} {{ t.up_to }}</p>
+      <p style="font-size:17px">{% with a="desc,"|add:lang %}{{ s|tr:a }}{% endwith %}</p>
+      <h3>{{ t.amenities }}</h3>
+      <div class="amen">{% for a in s.amenity_list %}{% with k="am_"|add:a %}<span>{{ t|tget:k }}</span>{% endwith %}{% endfor %}</div>
+    </div>
+    <form class="panel" method="post" id="bookform">
+      {% csrf_token %}
+      <div><span class="price">${{ s.price_usd }}</span> <span class="muted">{{ t.per_night }}</span></div>
+      {% if error %}<div class="banner err">{{ error }}</div>{% endif %}
+      <div class="row2">
+        <div><label>{{ t.search_from }}</label><input type="date" name="from" id="d1" value="{{ d1 }}" min="{{ min_date }}" required></div>
+        <div><label>{{ t.search_to }}</label><input type="date" name="to" id="d2" value="{{ d2 }}" min="{{ min_date }}" required></div>
+      </div>
+      <label>{{ t.search_guests }}</label><input type="number" name="guests" min="1" max="{{ s.capacity }}" value="{{ guests }}">
+      <label>{{ t.add_guide }}</label><select name="guide" id="guide"><option value="">{{ t.none }}</option>{% for g in guides %}<option value="{{ g.slug }}">{{ g.name }} · ${{ g.price_usd }}{{ t.per_day }}</option>{% endfor %}</select>
+      <label>{{ t.add_driver }}</label><select name="driver" id="driver"><option value="">{{ t.none }}</option>{% for d in drivers %}<option value="{{ d.slug }}">{{ d.name }} · {{ d.vehicle }} · ${{ d.price_usd }}{{ t.per_day }}</option>{% endfor %}</select>
+      <label>{{ t.your_name }}</label><input type="text" name="name" required maxlength="120">
+      <label>{{ t.contact }}</label><input type="text" name="contact" required maxlength="160">
+      <label>{{ t.country }}</label><input type="text" name="country" maxlength="80">
+      <div class="sum"><span id="nights" class="muted"></span><span class="price" id="total"></span></div>
+      <button class="btn red" style="width:100%;margin-top:12px">{{ t.confirm_book }}</button>
+      <p class="muted small" style="margin:10px 0 0">{{ t.book_note }}</p>
+    </form>
+  </div>
+</div></section>
+{% endblock %}
+{% block scripts %}
+<script>
+const PRICE={{ s.price_usd }}, SVC={{ svc_prices|safe }};
+function calc(){const a=new Date(d1.value),b=new Date(d2.value);let n=Math.round((b-a)/864e5);if(!(n>0))n=0;
+  let per=PRICE+(SVC[guide.value]||0)+(SVC[driver.value]||0);
+  document.getElementById('nights').textContent=n+' {{ t.nights|escapejs }} × $'+per;document.getElementById('total').textContent='{{ t.total|escapejs }}: $'+(n*per);}
+['d1','d2','guide','driver'].forEach(i=>document.getElementById(i).addEventListener('change',calc));calc();
+</script>
+{% endblock %}

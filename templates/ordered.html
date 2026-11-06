@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<section><div class="wrap" style="max-width:720px;text-align:center">
+  <div style="font-size:64px">📦</div><h1>{{ t.ordered_title }}</h1>
+  <p class="muted">{{ t.order_no }}: <b style="color:var(--ink);font-size:20px">{{ code }}</b></p>
+  <div class="card" style="text-align:left"><div class="body">
+    {% for i in o.items %}<div style="display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--line)"><span>{{ i.name }} × {{ i.qty }}</span><b>${{ i.price }}</b></div>{% endfor %}
+    <div class="sum"><span>{{ t.total }} ({{ o.country }})</span><span class="price">${{ o.total_usd }}</span></div>
+  </div></div>
+  <p class="muted small" style="margin-top:14px">{{ t.pay_note }}</p>
+  <a class="btn blue" href="/craft/">EthnoCraft →</a>
+</div></section>
+{% endblock %}

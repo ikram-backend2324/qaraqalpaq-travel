@@ -1,0 +1,25 @@
+{% extends "base.html" %}{% load qt %}
+{% block content %}
+<section><div class="wrap">
+  <a href="/craft/" class="small">← EthnoCraft</a>
+  <div class="detail" style="margin-top:12px">
+    <div class="bigpic" style="aspect-ratio:1/1;background-image:url(/img/product/{{ p.slug }}.svg)"></div>
+    <div class="panel">
+      <span class="tag">{% with k="cat_"|add:p.category %}{{ t|tget:k }}{% endwith %}</span>
+      <h1 style="font-size:36px;margin-top:12px">{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</h1>
+      <p style="font-size:17px">{% with a="desc,"|add:lang %}{{ p|tr:a }}{% endwith %}</p>
+      <p class="muted">{{ t.artisan }}: <b>{{ p.artisan }}</b> · {{ p.origin }}<br>{{ t.ships_in }}: {{ p.ship_days }} {{ t.days }}</p>
+      <div class="price" style="font-size:32px">${{ p.price_usd }}</div>
+      <form method="post" action="/cart/add/{{ p.slug }}/" id="addf">{% csrf_token %}<button class="btn red" style="width:100%;margin-top:12px" id="addb">🛒 {{ t.add_cart }}</button></form>
+    </div>
+  </div>
+  {% if more %}<h2 style="margin-top:36px">EthnoCraft</h2><div class="grid3">{% for p in more %}{% include "_product_card.html" %}{% endfor %}</div>{% endif %}
+</div></section>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('addf').onsubmit=async e=>{e.preventDefault();
+  const r=await fetch(e.target.action,{method:'POST',headers:{'X-CSRFToken':csrf(),'X-Requested-With':'fetch'}});
+  if(r.ok){const j=await r.json();document.getElementById('cartn').textContent=j.count;const b=document.getElementById('addb');b.textContent='{{ t.added|escapejs }}';}};
+</script>
+{% endblock %}

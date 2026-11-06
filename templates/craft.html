@@ -1,0 +1,11 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}EthnoCraft — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap">
+  <h1>{{ t.craft_title }}</h1>
+  <p class="muted" style="font-size:17px">{{ t.craft_sub }}</p>
+  <div class="chips"><a class="chip {% if not cat %}on{% endif %}" href="/craft/">{{ t.kind_all }}</a>
+    {% for c in cats %}<a class="chip {% if c == cat %}on{% endif %}" href="?cat={{ c }}">{% with k="cat_"|add:c %}{{ t|tget:k }}{% endwith %}</a>{% endfor %}</div>
+  <div class="grid4">{% for p in products %}{% include "_product_card.html" %}{% endfor %}</div>
+</div></section>
+{% endblock %}

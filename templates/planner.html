@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ t.planner_title }} — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap grid2" style="align-items:start">
+  <div>
+    <h1>✨ {{ t.planner_title }}</h1>
+    <p class="muted" style="font-size:17px">{{ t.planner_sub }}</p>
+    {% if not ai_on %}<div class="banner info">{{ t.ai_offline }}</div>{% endif %}
+    <div class="card"><div class="body">
+      <label style="font-weight:800">{{ t.p_days }}: <span id="dv">3</span></label>
+      <input type="range" id="days" min="1" max="7" value="3" style="width:100%;accent-color:#b6322a" oninput="dv.textContent=this.value">
+      <label style="font-weight:800;display:block;margin:14px 0 8px">{{ t.p_interests }}</label>
+      <div class="checks">
+        <label><input type="checkbox" value="history" checked> 🏰 {{ t.i_history }}</label>
+        <label><input type="checkbox" value="aral" checked> 🌊 {{ t.i_aral }}</label>
+        <label><input type="checkbox" value="nature"> 🚙 {{ t.i_nature }}</label>
+        <label><input type="checkbox" value="art"> 🎨 {{ t.i_art }}</label>
+      </div>
+      <label style="font-weight:800;display:block;margin:14px 0 8px">{{ t.p_budget }}</label>
+      <select id="budget"><option value="low">{{ t.b_low }}</option><option value="mid" selected>{{ t.b_mid }}</option><option value="high">{{ t.b_high }}</option></select>
+      <button class="btn red" id="go" style="width:100%;margin-top:16px">{{ t.p_make }}</button>
+    </div></div>
+  </div>
+  <div><div class="plan" id="plan"></div></div>
+</div></section>
+{% endblock %}
+{% block scripts %}
+<script>
+document.getElementById('go').onclick=async()=>{
+  const b=document.getElementById('go'),o=document.getElementById('plan');b.disabled=true;o.textContent='{{ t.p_loading|escapejs }}';
+  const interests=[...document.querySelectorAll('.checks input:checked')].map(x=>x.value);
+  try{const j=await postJSON('/api/plan/',{days:+document.getElementById('days').value,interests,budget:document.getElementById('budget').value,lang:QT.lang});
+    o.textContent=j.plan+(j.fallback?'\n\nℹ {{ t.ai_offline|escapejs }}':'');}
+  catch(e){o.textContent='{{ t.ai_error|escapejs }}';}
+  b.disabled=false;};
+</script>
+{% endblock %}

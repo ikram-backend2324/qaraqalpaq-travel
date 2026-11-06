@@ -1,0 +1,71 @@
+{% extends "base.html" %}{% load qt %}
+{% block head %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">{% endblock %}
+{% block content %}
+<section class="hero" style="padding:0">
+  <div class="bg" style="background-image:url(/img/hero.svg)"></div><div class="shade"></div>
+  <div class="wrap">
+    <span class="kicker">{{ t.hero_kicker }}</span>
+    <h1>{{ t.hero_title }}</h1>
+    <p class="lead">{{ t.hero_text }}</p>
+    <form class="search" action="/stays/">
+      <div><label>{{ t.search_where }}</label>
+        <select name="near"><option value="">{{ t.search_any }}</option>{% for p in places %}<option value="{{ p.slug }}">{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</option>{% endfor %}</select></div>
+      <div><label>{{ t.search_from }}</label><input type="date" name="from" value="{{ today|date:'Y-m-d' }}"></div>
+      <div><label>{{ t.search_to }}</label><input type="date" name="to" value="{{ tomorrow|date:'Y-m-d' }}"></div>
+      <div><label>{{ t.search_guests }}</label><input type="number" name="guests" min="1" max="8" value="2"></div>
+      <div style="display:flex;align-items:flex-end"><button class="btn red" style="width:100%">{{ t.search_btn }}</button></div>
+    </form>
+  </div>
+</section>
+
+<section style="padding-top:28px">
+  <div class="wrap stats">
+    <div class="stat"><b>{{ counts.0 }}</b><span class="muted">{{ t.stat_places }}</span></div>
+    <div class="stat"><b>{{ counts.1 }}</b><span class="muted">{{ t.stat_stays }}</span></div>
+    <div class="stat"><b>{{ counts.2 }}</b><span class="muted">{{ t.stat_services }}</span></div>
+    <div class="stat"><b>{{ counts.3 }}</b><span class="muted">{{ t.stat_products }}</span></div>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <h2>{{ t.modules_title }}</h2>
+    <div class="grid4">
+      <a class="card mod" href="/stays/"><div class="ic" style="background:#fbe5e2">⛺</div><h3>YurtGlamp</h3><p class="muted">{{ t.mod_stays_d }}</p></a>
+      <a class="card mod" href="/guides/"><div class="ic" style="background:#e6eff6">🚙</div><h3>{{ t.nav_guides }}</h3><p class="muted">{{ t.mod_guides_d }}</p></a>
+      <a class="card mod" href="/places/"><div class="ic" style="background:#fdf0d8">🏰</div><h3>{{ t.nav_places }}</h3><p class="muted">{{ t.mod_ar_d }}</p></a>
+      <a class="card mod" href="/craft/"><div class="ic" style="background:#e4f2ea">🧵</div><h3>EthnoCraft</h3><p class="muted">{{ t.mod_craft_d }}</p></a>
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;gap:10px"><h2>{{ t.featured_stays }}</h2><a href="/stays/">{{ t.see_all }} →</a></div>
+    <div class="grid3">
+      {% for s in featured %}{% include "_stay_card.html" %}{% endfor %}
+    </div>
+  </div>
+</section>
+
+<section style="padding-top:10px">
+  <div class="wrap">
+    <h2>{{ t.map_title }}</h2>
+    <div id="map"></div>
+    <div class="legend"><span><i style="background:#b6322a"></i>{{ t.map_legend_place }}</span><span><i style="background:#1f5f8b"></i>{{ t.map_legend_stay }}</span></div>
+  </div>
+</section>
+{% endblock %}
+{% block scripts %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+const P={{ map_json|safe }};
+const m=L.map('map',{scrollWheelZoom:false}).setView([42.6,59.8],7);
+L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',{attribution:'© OpenStreetMap, © CARTO',maxZoom:13}).addTo(m);
+const b=[];
+P.forEach(x=>{const c=x.t==='p'?'#b6322a':'#1f5f8b';
+  const mk=L.circleMarker([x.lat,x.lon],{radius:x.t==='p'?9:7,color:'#fff',weight:2,fillColor:c,fillOpacity:1}).addTo(m);
+  mk.bindPopup(`<b>${x.n}</b>${x.pr?'<br>$'+x.pr:''}<br><a href="${x.u}">→</a>`); b.push([x.lat,x.lon]);});
+m.fitBounds(b,{padding:[30,30]});
+</script>
+{% endblock %}

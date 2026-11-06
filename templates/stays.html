@@ -1,0 +1,20 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}YurtGlamp — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap">
+  <h1>{{ t.stays_title }}</h1>
+  <form class="filters">
+    <div><label>{{ t.search_where }}</label><select name="near"><option value="">{{ t.search_any }}</option>{% for p in places %}<option value="{{ p.slug }}" {% if p.slug == near %}selected{% endif %}>{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</option>{% endfor %}</select></div>
+    <div><label>{{ t.filter }}</label><select name="kind"><option value="">{{ t.kind_all }}</option>
+      <option value="yurt" {% if kind == 'yurt' %}selected{% endif %}>{{ t.kind_yurt }}</option>
+      <option value="glamping" {% if kind == 'glamping' %}selected{% endif %}>{{ t.kind_glamping }}</option>
+      <option value="guesthouse" {% if kind == 'guesthouse' %}selected{% endif %}>{{ t.kind_guesthouse }}</option></select></div>
+    <div><label>{{ t.max_price }} ($)</label><input type="number" name="max" min="10" value="{{ maxp }}" placeholder="100"></div>
+    {% if request.GET.from %}<input type="hidden" name="from" value="{{ request.GET.from }}">{% endif %}
+    {% if request.GET.to %}<input type="hidden" name="to" value="{{ request.GET.to }}">{% endif %}
+    {% if request.GET.guests %}<input type="hidden" name="guests" value="{{ request.GET.guests }}">{% endif %}
+    <div style="flex:0"><button class="btn blue">{{ t.filter }}</button></div>
+  </form>
+  <div class="grid3">{% for s in stays %}{% include "_stay_card.html" %}{% empty %}<p class="muted">{{ t.nothing_found }}</p>{% endfor %}</div>
+</div></section>
+{% endblock %}

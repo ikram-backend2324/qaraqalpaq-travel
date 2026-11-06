@@ -1,0 +1,24 @@
+{% extends "base.html" %}{% load qt %}
+{% block content %}
+<section><div class="wrap" style="max-width:900px">
+  <h1>🛒 {{ t.cart }}</h1>
+  {% if not items %}<p class="muted">{{ t.cart_empty }}</p><a class="btn blue" href="/craft/">EthnoCraft →</a>{% else %}
+  <div class="card"><table class="tbl">
+    {% for i in items %}<tr>
+      <td style="width:70px"><div style="width:56px;height:56px;border-radius:10px;background:url(/img/product/{{ i.p.slug }}.svg) center/cover"></div></td>
+      <td><b>{% with a="name,"|add:lang %}{{ i.p|tr:a }}{% endwith %}</b><div class="muted small">{{ i.p.artisan }} · {{ i.p.origin }}</div></td>
+      <td>{{ i.qty }} × ${{ i.p.price_usd }}</td><td><b>${{ i.sum }}</b></td>
+      <td><form method="post" action="/cart/remove/{{ i.p.slug }}/">{% csrf_token %}<button class="btn ghost" style="padding:6px 10px">{{ t.remove }}</button></form></td>
+    </tr>{% endfor %}
+    <tr><td></td><td>{{ t.shipping }}</td><td></td><td>${{ shipping }}</td><td></td></tr>
+    <tr><td></td><td><b>{{ t.total }}</b></td><td></td><td><span class="price">${{ total }}</span></td><td></td></tr>
+  </table></div>
+  {% if error %}<div class="banner err">{{ error }}</div>{% endif %}
+  <form method="post" class="card" style="margin-top:20px"><div class="body">{% csrf_token %}
+    <h3>{{ t.checkout }}</h3>
+    <div class="grid3"><input type="text" name="name" placeholder="{{ t.your_name }}" required><input type="text" name="contact" placeholder="{{ t.contact }}" required><input type="text" name="country" placeholder="{{ t.country }}" required></div>
+    <button class="btn red" style="margin-top:12px">{{ t.checkout }} — ${{ total }}</button>
+    <p class="muted small" style="margin:10px 0 0">{{ t.pay_note }}</p>
+  </div></form>{% endif %}
+</div></section>
+{% endblock %}

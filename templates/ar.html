@@ -1,0 +1,35 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}AR — {% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}{% endblock %}
+
+{% block content %}
+<section><div class="wrap">
+  <a href="/places/{{ p.slug }}/" class="small">← {% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</a>
+  <h1 style="font-size:36px;margin-top:10px">📱 {{ t.ar_title }}: {% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</h1>
+  <p class="muted">{% if scene == "aral" %}{{ t.ar_help_aral }}{% else %}{{ t.ar_help }}{% endif %}</p>
+  <div class="arbox" id="arbox">
+    <div class="arbg" style="background-image:url(/img/ar/{{ scene }}/bg.svg)"></div>
+    <video id="cam" playsinline muted autoplay style="display:none"></video>
+    <img class="past" id="past" src="/img/ar/{{ scene }}/past.svg" alt="" style="opacity:.6;pointer-events:none;width:100%;height:100%;object-fit:cover">
+    <div class="arhud" id="hud">{% if scene == 'aral' %}{{ t.ar_past_aral }}{% else %}{{ t.ar_past_fort }}{% endif %}</div>
+  </div>
+  <div class="arctl">
+    <button class="btn red" id="camBtn">📷 {{ t.ar_camera }}</button>
+    <span class="small muted">{{ t.ar_now }}</span>
+    <input type="range" id="mix" min="0" max="100" value="60">
+    <span class="small muted">{% if scene == 'aral' %}{{ t.ar_past_aral }}{% else %}{{ t.ar_past_fort }}{% endif %}</span>
+  </div>
+  <div id="camMsg" class="banner info" style="display:none;max-width:900px;margin:0 auto">{{ t.ar_no_camera }}</div>
+  <p class="muted small" style="max-width:900px;margin:10px auto">{{ t.ar_note }}</p>
+</div></section>
+{% endblock %}
+{% block scripts %}
+<script>
+const mix=document.getElementById('mix'),past=document.getElementById('past');
+mix.oninput=()=>past.style.opacity=mix.value/100;
+document.getElementById('camBtn').onclick=async()=>{
+  try{const s=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});
+    const v=document.getElementById('cam');v.srcObject=s;v.style.display='block';}
+  catch(e){document.getElementById('camMsg').style.display='block';}
+};
+</script>
+{% endblock %}

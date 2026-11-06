@@ -1,0 +1,12 @@
+{% extends "base.html" %}{% load qt %}
+{% block title %}{{ t.nav_guides }} — Qaraqalpaq Travel{% endblock %}
+{% block content %}
+<section><div class="wrap">
+  <h1>{{ t.guides_title }}</h1>
+  {% if error %}<div class="banner err">{{ error }}</div>{% endif %}
+  <h2 style="margin-top:20px">🧭 {{ t.guides }}</h2>
+  <div class="grid3">{% for v in guides %}{% include "_service_card.html" with color="#b6322a" %}{% endfor %}</div>
+  <h2 style="margin-top:34px">🚙 {{ t.drivers }}</h2>
+  <div class="grid3">{% for v in drivers %}{% include "_service_card.html" with color="#1f5f8b" %}{% endfor %}</div>
+</div></section>
+{% endblock %}

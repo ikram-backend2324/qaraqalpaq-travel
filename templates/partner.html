@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block content %}
+<section><div class="wrap" style="max-width:760px">
+  <h1>🤝 {{ t.partner_title }}</h1>
+  <p class="muted" style="font-size:17px">{{ t.partner_sub }}</p>
+  {% if sent %}<div class="banner ok">✓ {{ t.partner_thanks }}</div>{% endif %}
+  {% if error %}<div class="banner err">{{ error }}</div>{% endif %}
+  <form method="post" class="card"><div class="body">{% csrf_token %}
+    <label style="font-weight:800">{{ t.partner_kind }}</label>
+    <div class="checks" style="margin:8px 0 12px">
+      <label><input type="radio" name="kind" value="camp" checked> ⛺ {{ t.pk_camp }}</label>
+      <label><input type="radio" name="kind" value="driver"> 🚙 {{ t.pk_driver }}</label>
+      <label><input type="radio" name="kind" value="guide"> 🧭 {{ t.pk_guide }}</label>
+      <label><input type="radio" name="kind" value="artisan"> 🧵 {{ t.pk_artisan }}</label>
+    </div>
+    <div class="grid2"><input type="text" name="name" placeholder="{{ t.your_name }}" required><input type="text" name="contact" placeholder="{{ t.contact }}" required></div>
+    <input type="text" name="location" placeholder="{{ t.location }}" required style="margin-top:10px">
+    <textarea name="note" placeholder="{{ t.note }}" style="margin-top:10px" maxlength="400"></textarea>
+    <button class="btn red" style="margin-top:12px">{{ t.send }}</button>
+  </div></form>
+</div></section>
+{% endblock %}

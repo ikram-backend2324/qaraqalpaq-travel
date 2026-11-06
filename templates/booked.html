@@ -1,0 +1,16 @@
+{% extends "base.html" %}{% load qt %}
+{% block content %}
+<section><div class="wrap" style="max-width:720px;text-align:center">
+  <div style="font-size:64px">✅</div>
+  <h1>{{ t.booked_title }}</h1>
+  <p class="muted">{{ t.booked_text }}: <b style="color:var(--ink);font-size:20px">{{ code }}</b></p>
+  <div class="card" style="text-align:left;margin-top:20px"><div class="body">
+    <h3>{% if b.stay %}{{ b.stay.name }}{% else %}{{ b.service.name }}{% endif %}</h3>
+    <p class="muted" style="margin:0">{{ b.date_from|date:"d.m.Y" }} → {{ b.date_to|date:"d.m.Y" }} · {{ nights }} {% if b.stay %}{{ t.nights }}{% else %}{{ t.days }}{% endif %}{% if b.stay %} · {{ b.guests }} {{ t.search_guests|lower }}{% endif %}</p>
+    {% if b.extras %}<p class="muted" style="margin:6px 0 0">+ {{ b.extras }}</p>{% endif %}
+    <div class="sum"><span>{{ t.total }}</span><span class="price">${{ b.total_usd }}</span></div>
+  </div></div>
+  <p class="muted small" style="margin-top:14px">{{ t.book_note }}</p>
+  <a class="btn blue" href="/">{{ t.back_home }}</a>
+</div></section>
+{% endblock %}

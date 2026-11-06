@@ -1,0 +1,15 @@
+{% load qt %}<div class="card"><div class="body">
+  <div class="person"><div class="avatar" style="background:{{ color }}">{{ v.name|slice:":1" }}</div>
+    <div><h3 style="margin:0">{{ v.name }}</h3><div class="small" style="color:#d69a2d;font-weight:800">{{ v.rating|stars }}</div></div></div>
+  <p style="margin:12px 0 6px;font-weight:700">{% with a="spec,"|add:lang %}{{ v|tr:a }}{% endwith %}</p>
+  <div class="muted small">{{ t.langs }}: {{ v.languages }} · {{ t.base }}: {{ v.base }}{% if v.vehicle %}<br>🚙 {{ v.vehicle }} · {{ v.seats }} {{ t.seats }}{% endif %}</div>
+  <div style="margin:10px 0"><span class="price">${{ v.price_usd }}</span> <span class="muted small">{{ t.per_day }}</span></div>
+  <details><summary class="btn ghost" style="width:100%">{{ t.book_service }}</summary>
+    <form method="post" style="margin-top:10px">{% csrf_token %}<input type="hidden" name="service" value="{{ v.slug }}">
+      <div class="row2"><div><label class="small">{{ t.search_from }}</label><input type="date" name="from" value="{{ d1 }}" min="{{ min_date }}" required></div>
+      <div><label class="small">{{ t.days }}</label><input type="number" name="days" min="1" max="14" value="2"></div></div>
+      <input type="text" name="name" placeholder="{{ t.your_name }}" required style="margin-top:8px">
+      <input type="text" name="contact" placeholder="{{ t.contact }}" required style="margin-top:8px">
+      <button class="btn red" style="width:100%;margin-top:8px">{{ t.confirm_book }}</button></form>
+  </details>
+</div></div>

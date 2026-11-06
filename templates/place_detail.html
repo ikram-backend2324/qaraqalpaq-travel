@@ -1,0 +1,21 @@
+{% extends "base.html" %}{% load qt %}
+{% block content %}
+<section><div class="wrap">
+  <a href="/places/" class="small">← {{ t.nav_places }}</a>
+  <div class="detail" style="margin-top:12px">
+    <div>
+      <div class="bigpic" style="background-image:url(/img/place/{{ p.slug }}.svg)"></div>
+    </div>
+    <div>
+      <span class="tag">{% with k="kind_"|add:p.kind %}{{ t|tget:k }}{% endwith %}</span>
+      <h1 style="font-size:40px;margin-top:12px">{% with a="name,"|add:lang %}{{ p|tr:a }}{% endwith %}</h1>
+      <p class="muted">📍 {{ p.district }}</p>
+      <p style="font-size:17px">{% with a="desc,"|add:lang %}{{ p|tr:a }}{% endwith %}</p>
+      {% if p.ar_scene %}<a class="btn red" href="/ar/{{ p.slug }}/">📱 {{ t.ar_open }}</a>{% endif %}
+      <a class="btn ghost" href="/planner/">✨ {{ t.nav_planner }}</a>
+    </div>
+  </div>
+  {% if stays %}<h2 style="margin-top:36px">{{ t.stays_near }}</h2>
+  <div class="grid3">{% for s in stays %}{% include "_stay_card.html" %}{% endfor %}</div>{% endif %}
+</div></section>
+{% endblock %}
