@@ -61,7 +61,7 @@
 <script>
 const P={{ map_json|safe }};
 const m=L.map('map',{scrollWheelZoom:false}).setView([42.6,59.8],7);
-L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:13}).addTo(m);
+L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',maxZoom:13,referrerPolicy:'strict-origin-when-cross-origin'}).addTo(m);
 const b=[];
 P.forEach(x=>{const c=x.t==='p'?'#b6322a':'#1f5f8b';
   const mk=L.circleMarker([x.lat,x.lon],{radius:x.t==='p'?9:7,color:'#fff',weight:2,fillColor:c,fillOpacity:1}).addTo(m);

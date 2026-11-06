@@ -109,3 +109,4 @@ LOGGING = {
     "handlers": {"console": {"class": "logging.StreamHandler"}},
     "root": {"handlers": ["console"], "level": "INFO"},
 }
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"  # OSM tiles need a Referer
