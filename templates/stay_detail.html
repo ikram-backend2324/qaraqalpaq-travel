@@ -22,8 +22,8 @@
         <div><label>{{ t.search_to }}</label><input type="date" name="to" id="d2" value="{{ d2 }}" min="{{ min_date }}" required></div>
       </div>
       <label>{{ t.search_guests }}</label><input type="number" name="guests" min="1" max="{{ s.capacity }}" value="{{ guests }}">
-      <label>{{ t.add_guide }}</label><select name="guide" id="guide"><option value="">{{ t.none }}</option>{% for g in guides %}<option value="{{ g.slug }}">{{ g.name }} · ${{ g.price_usd }}{{ t.per_day }}</option>{% endfor %}</select>
-      <label>{{ t.add_driver }}</label><select name="driver" id="driver"><option value="">{{ t.none }}</option>{% for d in drivers %}<option value="{{ d.slug }}">{{ d.name }} · {{ d.vehicle }} · ${{ d.price_usd }}{{ t.per_day }}</option>{% endfor %}</select>
+      <label>{{ t.add_guide }}</label><select name="guide" id="guide"><option value="">{{ t.none }}</option>{% for g in guides %}<option value="{{ g.slug }}">{{ g.name }} · ${{ g.price_usd }} {{ t.per_day }}</option>{% endfor %}</select>
+      <label>{{ t.add_driver }}</label><select name="driver" id="driver"><option value="">{{ t.none }}</option>{% for d in drivers %}<option value="{{ d.slug }}">{{ d.name }} · {{ d.vehicle }} · ${{ d.price_usd }} {{ t.per_day }}</option>{% endfor %}</select>
       <label>{{ t.your_name }}</label><input type="text" name="name" required maxlength="120">
       <label>{{ t.contact }}</label><input type="text" name="contact" required maxlength="160">
       <label>{{ t.country }}</label><input type="text" name="country" maxlength="80">

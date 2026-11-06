@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% block title %}{{ t.nav_dashboard }} — Qaraqalpaq Travel{% endblock %}
 {% block content %}
 <section><div class="wrap">
   <h1>📊 {{ t.dash_title }}</h1>
-  <div class="stats" style="grid-template-columns:repeat(5,1fr)">
+  <div class="stats s5">
     <div class="stat"><b>{{ bookings }}</b><span class="muted">{{ t.d_bookings }}</span></div>
     <div class="stat"><b>{{ orders }}</b><span class="muted">{{ t.d_orders }}</span></div>
     <div class="stat"><b>${{ gmv }}</b><span class="muted">{{ t.d_gmv }}</span></div>

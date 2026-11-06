@@ -207,6 +207,9 @@ T = {
                    "en": "AI server not connected — showing a rule-based plan."},
     "ai_error": {"qq": "Qátelik júz berdi, qaytadan urınıp kóriń.", "uz": "Xatolik yuz berdi, qayta urinib ko'ring.",
                  "ru": "Произошла ошибка, попробуйте ещё раз.", "en": "Something went wrong, please try again."},
+    "not_found": {"qq": "Bet tabılmadı", "uz": "Sahifa topilmadi", "ru": "Страница не найдена", "en": "Page not found"},
+    "not_found_text": {"qq": "Bul siltewde bet joq. Bas betke qaytıp, sayaxattı dawam etiń.", "uz": "Bu havola bo'yicha sahifa yo'q. Bosh sahifaga qaytib, sayohatni davom ettiring.", "ru": "По этой ссылке страницы нет. Вернитесь на главную и продолжайте путешествие.", "en": "There is no page at this link. Go back to the home page and keep exploring."},
+    "to_home": {"qq": "Bas betke", "uz": "Bosh sahifaga", "ru": "На главную", "en": "Home page"},
     "free_day": {"qq": "Bos kún: dem alıw, jergilikli bazar hám ónermentler", "uz": "Bo'sh kun: dam olish, mahalliy bozor va hunarmandlar", "ru": "Свободный день: отдых, местный базар и мастера", "en": "Free day: rest, local bazaar and artisans"},
     "day": {"qq": "kún", "uz": "kun", "ru": "день", "en": "Day"},
 
