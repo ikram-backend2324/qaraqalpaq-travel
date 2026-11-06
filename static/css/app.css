@@ -1,12 +1,15 @@
+@font-face{font-family:"QQ Serif";src:url(/static/fonts/qq-serif.woff2) format("woff2");font-weight:600 800;unicode-range:U+01F4-01F5}
+@font-face{font-family:"QQ Sans";src:url(/static/fonts/qq-sans-400.woff2) format("woff2");font-weight:400 500;unicode-range:U+01F4-01F5}
+@font-face{font-family:"QQ Sans";src:url(/static/fonts/qq-sans.woff2) format("woff2");font-weight:600 800;unicode-range:U+01F4-01F5}
 :root{
   --bg:#faf5ec; --paper:#ffffff; --sand:#f1e4cc; --sand2:#e6d2ae; --ink:#2b1d14; --muted:#7a6552;
   --red:#b6322a; --red2:#8f2620; --blue:#1f5f8b; --blue2:#174a6d; --gold:#d69a2d; --green:#2f6b4f;
   --line:#e8dcc6; --r:18px; --shadow:0 12px 30px rgba(73,47,20,.10);
 }
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "QQ Sans","Manrope",system-ui,sans-serif;-webkit-font-smoothing:antialiased}
 a{color:var(--blue)}
-h1,h2,h3{font-family:"Lora",Georgia,serif;font-weight:700;line-height:1.15;margin:0 0 .5em}
+h1,h2,h3{font-family:"QQ Serif","Lora",Georgia,serif;font-weight:700;line-height:1.15;margin:0 0 .5em}
 h1{font-size:clamp(32px,5vw,58px)} h2{font-size:clamp(24px,3vw,34px)} h3{font-size:19px}
 p{margin:0 0 1em}
 .wrap{max-width:1200px;margin:0 auto;padding:0 20px}
@@ -20,7 +23,7 @@ p{margin:0 0 1em}
 /* header */
 .top{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,.95);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .top .wrap{display:flex;align-items:center;gap:16px;height:66px}
-.logo{display:flex;align-items:center;gap:10px;font-family:"Lora",serif;font-weight:700;font-size:20px;color:var(--ink);text-decoration:none;white-space:nowrap}
+.logo{display:flex;align-items:center;gap:10px;font-family:"QQ Serif","Lora",serif;font-weight:700;font-size:20px;color:var(--ink);text-decoration:none;white-space:nowrap}
 .logo img{width:36px;height:36px}
 .nav{display:flex;gap:2px;margin-left:auto;align-items:center}
 .nav a{color:var(--muted);padding:8px 9px;border-radius:10px;font-size:13.5px;font-weight:700;text-decoration:none;white-space:nowrap}
@@ -53,7 +56,7 @@ select,input[type=text],input[type=date],input[type=number],input[type=email],te
 textarea{min-height:90px}
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-1px}
 .stat{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px}
-.stat b{display:block;font-family:"Lora",serif;font-size:30px;color:var(--red)}
+.stat b{display:block;font-family:"QQ Serif","Lora",serif;font-size:30px;color:var(--red)}
 
 section{padding:52px 0}
 .grid2{display:grid;grid-template-columns:1fr 1fr;gap:20px}
@@ -67,7 +70,7 @@ a.card{color:inherit;text-decoration:none;display:block;transition:transform .15
 a.card:hover{transform:translateY(-3px)}
 .tag{display:inline-block;background:var(--sand);color:var(--ink);font-size:12px;font-weight:800;padding:4px 9px;border-radius:999px}
 .tag.red{background:var(--red);color:#fff} .tag.blue{background:var(--blue);color:#fff}
-.price{font-family:"Lora",serif;font-weight:700;font-size:22px;color:var(--red)}
+.price{font-family:"QQ Serif","Lora",serif;font-weight:700;font-size:22px;color:var(--red)}
 .mod{padding:22px}
 .mod .ic{width:52px;height:52px;border-radius:14px;display:grid;place-items:center;font-size:26px;margin-bottom:12px}
 #map{height:460px;border-radius:var(--r);border:1px solid var(--line)}
@@ -92,7 +95,7 @@ a.card:hover{transform:translateY(-3px)}
 .banner.err{background:#fbe5e2;border:1px solid #efb2aa;color:#8f2620}
 .banner.info{background:#e6eff6;border:1px solid #a9c7de;color:#174a6d}
 .person{display:flex;gap:14px;align-items:center}
-.avatar{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-family:"Lora",serif;font-weight:700;font-size:22px;color:#fff;flex:none}
+.avatar{width:58px;height:58px;border-radius:50%;display:grid;place-items:center;font-family:"QQ Serif","Lora",serif;font-weight:700;font-size:22px;color:#fff;flex:none}
 .tbl{width:100%;border-collapse:collapse;font-size:14px}
 .tbl th{text-align:left;font-size:12px;text-transform:uppercase;color:var(--muted);padding:10px;border-bottom:1px solid var(--line)}
 .tbl td{padding:12px 10px;border-bottom:1px solid var(--line)}
